@@ -23,7 +23,7 @@ The following **optional** features are implemented:
 
 - [x] Search results page
    - [x] Infinite scroll for restaurant results.
-   - [ ] Implement map view of restaurant results.
+   - [x] Implement map view of restaurant results.
 - [x] Filter page
    - [x] Implement a custom switch instead of the default UISwitch. (Added some colors. Didn't implement a custom class)
    - [x] Distance filter should expand as in the real Yelp app
@@ -37,7 +37,7 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. Map views. How to handle pins with overlapping coordinates. I was really having trouble with that so removed it.
+1. Map views. How to handle pins with overlapping coordinates. I was really having trouble with that.
 2. Custom UI controls.
 
 ## Video Walkthrough
@@ -46,6 +46,7 @@ Here's a walkthrough of implemented user stories:
 
 <img src='http://i.imgur.com/3XVtysF.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+<img src='http://i.imgur.com/0xdH5Vk.gif' title='Video Walkthrough' width='' alt='Map View Walkthrough' />
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes

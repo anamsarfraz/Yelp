@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MapKit
 
 
 class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,FiltersViewControllerDelegate, UIScrollViewDelegate {
@@ -16,7 +17,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     var currBusinesses: [Business]!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var yelpNavigationBar: UINavigationItem!
-    
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var viewSelectControl: UISegmentedControl!
     var searchBar: UISearchBar!
     var filterSettings: YelpFilterSettings!
     var currFilters: [String: AnyObject]!
@@ -72,12 +74,41 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         tableView.contentInset = insets
         
+        // update map location
+        let centerLocation = CLLocation(latitude: 37.7833, longitude: -122.4167)
+        goToLocation(location: centerLocation)
+        
+        // load the right view
+        showActiveView()
         
         // Perform the first search when the view controller first loads
         doSearch(term: defaultSearchTerm, sort: currFilters["sort"] as? YelpSortMode, categories: currFilters["categories"] as? [String], deals: currFilters["deals"] as? Bool, distance: currFilters["distance"] as? Double)
         
     }
     
+    func goToLocation(location: CLLocation) {
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let region = MKCoordinateRegionMake(location.coordinate, span)
+        mapView.setRegion(region, animated: false)
+    }
+    
+    func addAnnotationAtCoordinate(coordinate: CLLocationCoordinate2D, title: String) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = title
+        mapView.addAnnotation(annotation)
+    }
+    
+    fileprivate func showActiveView() {
+        let selectedIdx = viewSelectControl.selectedSegmentIndex
+        viewSelectControl.tintColor = yelpRed
+        tableView.isHidden = selectedIdx == 0 ? false : true
+        mapView.isHidden = selectedIdx == 1 ? false : true
+    }
+    
+    @IBAction func displaySelectedView(_ sender: AnyObject) {
+        showActiveView()
+    }
     fileprivate func doSearch(term: String, sort: YelpSortMode?, categories: [String]?, deals: Bool?, distance: Double?) {
         if (!isMoreDataLoading) {
             // Show the progress bar when infinite scroll is not showing
@@ -100,7 +131,16 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             }
             self.currTotal = total!
             
+            if let businesses = self.businesses {
+                for business in businesses {
+                    let coordinate =
+                    CLLocationCoordinate2D(latitude: business.latitude?.doubleValue ?? 0.00, longitude: business.longitude?.doubleValue ?? 0.00)
+                    self.addAnnotationAtCoordinate(coordinate: coordinate, title: business.name!)
+                }
+            }
             self.tableView.reloadData()
+            
+            
             }
         )
     }

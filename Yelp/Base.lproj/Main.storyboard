@@ -19,11 +19,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ccn-Ab-ymh">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="Lz8-gv-xnc"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="List View"/>
+                                    <segment title="Map View"/>
+                                </segments>
+                                <connections>
+                                    <action selector="displaySelectedView:" destination="2xI-yr-O5N" eventType="valueChanged" id="VK3-be-VKW"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="143" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fdq-Iz-bvi">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusinessCell" rowHeight="143" id="gkK-wn-g9Q" customClass="BusinessCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="143"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gkK-wn-g9Q" id="y6b-5c-dJS">
                                             <frame key="frameInset" width="375" height="142"/>
@@ -108,13 +120,22 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qxH-Z8-uRE"/>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.70458225388601037" green="0.70458225388601037" blue="0.70458225388601037" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Fdq-Iz-bvi" secondAttribute="trailing" id="1Zn-WL-nZ9"/>
+                            <constraint firstItem="ccn-Ab-ymh" firstAttribute="top" secondItem="hR0-74-jRp" secondAttribute="bottom" id="2v4-f9-3zu"/>
+                            <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="qxH-Z8-uRE" secondAttribute="bottom" id="4Na-VV-X03"/>
                             <constraint firstItem="VBY-gq-v8E" firstAttribute="top" secondItem="Fdq-Iz-bvi" secondAttribute="bottom" id="A3A-9o-2Ot"/>
-                            <constraint firstItem="Fdq-Iz-bvi" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="FTm-GN-NLN"/>
+                            <constraint firstAttribute="trailing" secondItem="qxH-Z8-uRE" secondAttribute="trailing" id="BZM-Hq-iww"/>
+                            <constraint firstItem="Fdq-Iz-bvi" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" constant="30" id="FTm-GN-NLN"/>
+                            <constraint firstItem="ccn-Ab-ymh" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leadingMargin" constant="98" id="ZZg-o8-3R4"/>
                             <constraint firstItem="Fdq-Iz-bvi" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="bYM-Pr-b3v"/>
+                            <constraint firstItem="ccn-Ab-ymh" firstAttribute="centerX" secondItem="XhR-oz-92f" secondAttribute="centerX" id="eJs-nm-Rp8"/>
+                            <constraint firstItem="qxH-Z8-uRE" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" constant="30" id="hBn-z7-aQc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ccn-Ab-ymh" secondAttribute="trailing" constant="98" id="lCU-1N-L5m"/>
+                            <constraint firstItem="qxH-Z8-uRE" firstAttribute="leading" secondItem="XhR-oz-92f" secondAttribute="leading" id="xRu-C0-P1X"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Yelp" id="ak2-ba-HOp">
@@ -125,7 +146,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mapView" destination="qxH-Z8-uRE" id="Rfr-ft-yHe"/>
                         <outlet property="tableView" destination="Fdq-Iz-bvi" id="Cna-DW-T3T"/>
+                        <outlet property="viewSelectControl" destination="ccn-Ab-ymh" id="pN7-wy-5Or"/>
                         <outlet property="yelpNavigationBar" destination="ak2-ba-HOp" id="aN9-6H-XEr"/>
                     </connections>
                 </viewController>
